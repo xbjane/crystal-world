@@ -16,7 +16,7 @@ public class WalkingMonster : Entity
     private void Awake()
     {
         anim = GetComponent<Animator>();
-        sprite = GetComponentInChildren<SpriteRenderer>();
+        sprite = GetComponentInChildren<SpriteRenderer>(true);
     }
     private void Start()
     {

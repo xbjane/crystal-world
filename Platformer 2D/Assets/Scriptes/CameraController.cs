@@ -15,7 +15,7 @@ public class CameraController : MonoBehaviour
     private void Update()
     {
         pos = player.position;//получаем координаты игрока
-        pos.z = -2f;//фиксируем положение камеры, чтобы она не приближалась к игроку
+        pos.z = -10f;//фиксируем положение камеры, чтобы она не приближалась к игроку
         transform.position = Vector3.Lerp(transform.position, pos, Time.deltaTime);//перемещаем туда камеру, метод Lerp делает движение плавным
     }
 }

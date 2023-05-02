@@ -26,16 +26,19 @@ public class Hero : Entity
         sprite = GetComponentInChildren<SpriteRenderer>();//компонент находится в дочернем элементе (sprite)
         Instance = this;
     }
-    private void Update()
+    private void FixedUpdate()
     {
         if (CheckGround()) State = States.idle;//если на земле, значит стоим
         if (Input.GetButton("Horizontal"))
             Run();
         if (CheckGround() && Input.GetButton("Jump"))
+        {
             Jump();
+        }
     }
     private void Jump()
     {
+        State = States.jump;
         rb.AddForce(transform.up*jumpForce, ForceMode2D.Impulse);
     }
     private void Run() //метод для бега
@@ -47,7 +50,7 @@ public class Hero : Entity
     }
     private bool CheckGround()
     {
-        Collider2D[] collider = Physics2D.OverlapCircleAll(transform.position, 0.3f);//создаём массив коллайдеров(смещение системы кординат к ногам помогает искать колайдеры у ног)
+        Collider2D[] collider = Physics2D.OverlapCircleAll(transform.position + transform.up * (-0.1f), 0.2f);//создаём массив коллайдеров(смещение системы кординат к ногам помогает искать колайдеры у ног)
         isGrounded = collider.Length>1;//(1 - коллайдер персонажа, который тоже считается)
         if (!isGrounded) State = States.jump;
         return isGrounded;

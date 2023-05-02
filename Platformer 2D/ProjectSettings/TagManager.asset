@@ -41,3 +41,6 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: AllHeroes
+    uniqueID: 872893397
+    locked: 0

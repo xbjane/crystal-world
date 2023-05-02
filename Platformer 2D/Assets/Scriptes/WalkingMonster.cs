@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class WalkingMonster : Entity
 {
-    private float speed = 3.5f;
+    [SerializeField] private float speed = 3.5f;
     private Animator anim;
     private Vector3 dir;
     private SpriteRenderer sprite;
@@ -16,7 +16,7 @@ public class WalkingMonster : Entity
     private void Awake()
     {
         anim = GetComponent<Animator>();
-        sprite = GetComponentInChildren<SpriteRenderer>(true);
+        sprite = GetComponentInChildren<SpriteRenderer>();
     }
     private void Start()
     {
@@ -34,19 +34,21 @@ public class WalkingMonster : Entity
     }
     private bool CheckLets()
     {
-        if (Physics2D.OverlapCircleAll(transform.position + transform.up * 0.1f + transform.right * dir.x * 0.7f, 0.1f).Length != 0 && Physics2D.OverlapCircleAll(transform.position + transform.up * 0.1f + transform.right * (-dir.x) * 0.7f, 0.1f).Length != 0)
+        if (Physics2D.OverlapCircleAll(transform.position/* + transform.up * 0.5f*/ + transform.right * dir.x * 0.1f, 0.2f).Length > 1 && Physics2D.OverlapCircleAll(transform.position /*+ *//*transform.up * 0.1f*/ + transform.right * (-dir.x) * 0.1f, 0.2f).Length > 1)
             return true;
         return false;
     }
     private void Move()
     {
-        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position + transform.up * 0.1f + transform.right * dir.x * 0.7f, 0.1f);//возвращает массив коллайдеров, находящийся вокруг указанной точки в указанном радиусе
-        if (colliders.Length > 0)
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position /*+ transform.up * 0.1f*/ + transform.right * dir.x * 0.1f, 0.2f);//возвращает массив коллайдеров, находящийся вокруг указанной точки в указанном радиусе
+        if (colliders.Length > 1)
         {
+            Debug.Log("Change dir");
             dir.x *= -1f; //меняем направление движения на противоположное          
         }
-        transform.position = Vector3.MoveTowards(transform.position, transform.position+dir, Time.deltaTime);//перемещение врага
-        sprite.flipX = dir.x > 0.0f; //поворот монстра(переключение галочки)
+        Debug.Log(dir.x);
+        transform.position = Vector3.MoveTowards(transform.position, transform.position+dir, speed*Time.deltaTime);//перемещение врага
+        sprite.flipX = dir.x < 0.0f; //поворот монстра(переключение галочки)
     }
     private void OnCollisionEnter2D(Collision2D collision) //вызывается, когда коллайдер другого объекта вступает с коллайдером этого объекта
     {

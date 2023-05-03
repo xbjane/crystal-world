@@ -19,6 +19,7 @@ public class Hero : Entity
     private Animator anim;
     private SpriteRenderer sprite;
 
+    public Joystick joystick;
     public static Hero Instance { get; set; } //сингелтон, позвол€ющий использовать обращение ко все публичным пол€м и методам без создани€ экхемпл€ра класса
     private States State //создаЄм свойство типа State(по названию списка)
     {
@@ -37,9 +38,9 @@ public class Hero : Entity
     private void FixedUpdate()
     {
         if (CheckGround()) State = States.idle;//если на земле, значит стоим
-        if (Input.GetButton("Horizontal"))
+        if (!isAttacking && joystick.Horizontal!=0)
             Run();
-        if (CheckGround() && Input.GetButton("Jump"))
+        if (!isAttacking && CheckGround() && Input.GetButton("Jump"))
             Jump();
         if (Input.GetButtonDown("Fire1"))
                 Attack();
@@ -58,7 +59,7 @@ public class Hero : Entity
     private void Run() //метод дл€ бега
     {
         if (CheckGround()) State = States.run;
-        Vector3 dir = transform.right * Input.GetAxis("Horizontal");
+        Vector3 dir = transform.right * joystick.Horizontal;
         transform.position = Vector3.MoveTowards(transform.position, transform.position+dir,speed*Time.deltaTime);//задаЄм движение(параметры: текущее положение, место дл€ перемещени€, скорость)
         sprite.flipX = dir.x < 0.0f;//поворот персонажа(переключение галочки)
     }

@@ -4,7 +4,11 @@ using UnityEngine;
 
 public class Worm : Entity
 {
-    [SerializeField] private int lives = 3; //сериализация приватной переменной для отображения в редакторе
+    // [SerializeField] private int lives = 3; //сериализация приватной переменной для отображения в редакторе
+    private void Start()
+    {
+        lives = 3;
+    }
     private void OnCollisionEnter2D(Collision2D collision) //вызывается, когда коллайдер другого объекта вступает с коллайдером этого объекта
     {
         if (collision.gameObject == Hero.Instance.gameObject)

@@ -8,7 +8,7 @@ TagManager:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - enemy
   - Water
   - UI
   - 
@@ -43,4 +43,7 @@ TagManager:
     locked: 0
   - name: AllHeroes
     uniqueID: 872893397
+    locked: 0
+  - name: UI
+    uniqueID: 3872945761
     locked: 0

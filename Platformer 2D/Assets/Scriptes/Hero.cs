@@ -1,14 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Hero : Entity
 {
+    public bool isAttacking=true;
+    public bool isRecharged=false;
+    public Transform attackPos; //позиция атаки
+    public float attackRange; //дальность атаки
+    public LayerMask enemy; //слой с врагами
     [SerializeField] private float speed = 3f; //переменные, скорость
-    [SerializeField] private int lives = 5;//количество жизней
+    [SerializeField] private List<Image> hearts;//количество жизней
     [SerializeField] private float jumpForce = 3f;//сила прыжка
     private bool isGrounded = false;//переменная, содержащая значение находится ли персонаж на земле
-
+    //private int allLives;
     private Rigidbody2D rb; //ссылки на компоненты
     private Animator anim;
     private SpriteRenderer sprite;
@@ -25,6 +31,8 @@ public class Hero : Entity
         anim = GetComponent<Animator>();
         sprite = GetComponentInChildren<SpriteRenderer>();//компонент находится в дочернем элементе (sprite)
         Instance = this;
+        isRecharged = true;
+        lives = 3;
     }
     private void FixedUpdate()
     {
@@ -32,9 +40,15 @@ public class Hero : Entity
         if (Input.GetButton("Horizontal"))
             Run();
         if (CheckGround() && Input.GetButton("Jump"))
-        {
             Jump();
-        }
+        if (Input.GetButtonDown("Fire1"))
+                Attack();
+        //if (lives < allLives)
+        //{
+        //    allLives--;
+        //    Destroy(hearts[lives - 1]);
+        //}
+
     }
     private void Jump()
     {
@@ -48,6 +62,40 @@ public class Hero : Entity
         transform.position = Vector3.MoveTowards(transform.position, transform.position+dir,speed*Time.deltaTime);//задаём движение(параметры: текущее положение, место для перемещения, скорость)
         sprite.flipX = dir.x < 0.0f;//поворот персонажа(переключение галочки)
     }
+    private void Attack()
+    {
+        if (isGrounded && isRecharged)
+        {
+            State = States.attack;
+            isAttacking = true;
+            isRecharged = false;
+            StartCoroutine(AttackAnimation()); //корутина выполняется параллельно основному потоку
+            StartCoroutine(AttackCoolDown());
+        }
+    }
+    private IEnumerator AttackAnimation() //подсчёт времени атаки 
+    {
+        yield return new WaitForSeconds(0.4f); //отдать процессорное время основному потоку и продолжить спустя указанное время
+        isAttacking = false;
+    }
+    private IEnumerator AttackCoolDown() //подсчёт времени перезарядки
+    {
+        yield return new WaitForSeconds(0.5f);
+        isRecharged = true;
+    }
+    private void OnAttack()
+    {
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(attackPos.position, attackRange, enemy);//возвращает массив коллайдеров, находящийся вокруг указанной точки в указанном радиусе
+        for (int i = 0; i < colliders.Length; i++)
+        {
+            colliders[i].GetComponent<Entity>().GetDamage();
+        }
+    }
+    private void OnDrawGizmosSelected() //нарисовать сферу, показывающую радиус атаки
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(attackPos.position, attackRange);
+    }
     private bool CheckGround()
     {
         Collider2D[] collider = Physics2D.OverlapCircleAll(transform.position + transform.up * (-0.1f), 0.2f);//создаём массив коллайдеров(смещение системы кординат к ногам помогает искать колайдеры у ног)
@@ -57,10 +105,15 @@ public class Hero : Entity
     }
     public override void GetDamage()
     {
-        lives -= 1;
         Debug.Log(lives);
-        if (lives < 1)
+        lives--;
+        if (lives >= 1)
+            Destroy(hearts[lives].gameObject);
+        else
+        {
+            Destroy(hearts[0].gameObject);
             Die();
+        }
     }
 }
 
@@ -68,5 +121,6 @@ public enum States//список состояний
 {
     idle, 
     run,
-    jump
+    jump,
+    attack
 }

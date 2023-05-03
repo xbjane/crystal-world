@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: 6a7a569a0b026d14a85033dcdddd98e8
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontNames:
+  - Sonic 1 Title Screen Filled
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 318bbb31842eb1742b55db810def0fc7, type: 3}
+  customCharacters: 
+  fontRenderingMode: 2
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

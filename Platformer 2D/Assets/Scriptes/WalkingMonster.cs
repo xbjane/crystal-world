@@ -21,7 +21,7 @@ public class WalkingMonster : Entity
     private void Start()
     {
         dir = transform.right;
-        lives = 1;
+        lives = 2;
     }
     private void Update()
     {

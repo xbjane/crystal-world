@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Entity : MonoBehaviour //скрипт для начлежования всем монстрам
 {
-    protected int lives;
+   internal int lives;
    public virtual void GetDamage() 
     {
         lives--;
@@ -15,5 +15,4 @@ public class Entity : MonoBehaviour //скрипт для начлежования всем монстрам
     {
         Destroy(this.gameObject);
     }
-  
 }

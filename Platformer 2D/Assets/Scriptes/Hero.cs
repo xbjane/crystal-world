@@ -5,16 +5,22 @@ using UnityEngine.UI;
 
 public class Hero : Entity
 {
-    public bool isAttacking=true;
-    public bool isRecharged=false;
+    [SerializeField] AudioSource audioSource;
+    public AudioClip jump;
+    public AudioClip damage;
+    public AudioClip hit;
+    public AudioClip hitEnemy;
+    public bool isAttacking;
+    public bool isRecharged;
     public Transform attackPos; //позиция атаки
     public float attackRange; //дальность атаки
     public LayerMask enemy; //слой с врагами
     [SerializeField] private float speed = 3f; //переменные, скорость
     [SerializeField] private List<Image> hearts;//количество жизней
     [SerializeField] private float jumpForce = 3f;//сила прыжка
-    private bool isGrounded = false;//переменная, содержащая значение находится ли персонаж на земле
+    private bool isGrounded;//переменная, содержащая значение находится ли персонаж на земле
     //private int allLives;
+    private bool isJumping;
     private Rigidbody2D rb; //ссылки на компоненты
     private Animator anim;
     private SpriteRenderer sprite;
@@ -32,18 +38,22 @@ public class Hero : Entity
         anim = GetComponent<Animator>();
         sprite = GetComponentInChildren<SpriteRenderer>();//компонент находится в дочернем элементе (sprite)
         Instance = this;
+        isGrounded = CheckGround();
+        //if (isGrounded)
+        //    isJumping = false;
+        isJumping =false;
+        isAttacking = false;
         isRecharged = true;
         lives = 3;
     }
     private void FixedUpdate()
     {
-        if (CheckGround()) State = States.idle;//если на земле, значит стоим
+        isGrounded = CheckGround();
+        if (isGrounded) State = States.idle;//если на земле, значит стоим
         if (!isAttacking && joystick.Horizontal!=0)
             Run();
-        if (!isAttacking && CheckGround() && Input.GetButton("Jump"))
+        if (!isAttacking && isGrounded && joystick.Vertical >= 0.5)
             Jump();
-        if (Input.GetButtonDown("Fire1"))
-                Attack();
         //if (lives < allLives)
         //{
         //    allLives--;
@@ -53,8 +63,20 @@ public class Hero : Entity
     }
     private void Jump()
     {
-        State = States.jump;
-        rb.AddForce(transform.up*jumpForce, ForceMode2D.Impulse);
+        if (!isJumping)
+        {
+            isJumping = true;
+            State = States.jump;
+            rb.velocity = Vector2.up * jumpForce; //линейная скорость по направлению
+            audioSource.PlayOneShot(jump);
+            StartCoroutine(WaitForJump());
+        }
+        //rb.AddForce(transform.up*jumpForce, ForceMode2D.Impulse);
+    }
+    private IEnumerator WaitForJump()
+    {
+        yield return new WaitForSeconds(0.2f);
+        isJumping = false;
     }
     private void Run() //метод для бега
     {
@@ -63,10 +85,11 @@ public class Hero : Entity
         transform.position = Vector3.MoveTowards(transform.position, transform.position+dir,speed*Time.deltaTime);//задаём движение(параметры: текущее положение, место для перемещения, скорость)
         sprite.flipX = dir.x < 0.0f;//поворот персонажа(переключение галочки)
     }
-    private void Attack()
+    public void Attack()
     {
         if (isGrounded && isRecharged)
         {
+            Debug.Log("Attack");
             State = States.attack;
             isAttacking = true;
             isRecharged = false;
@@ -87,9 +110,19 @@ public class Hero : Entity
     private void OnAttack()
     {
         Collider2D[] colliders = Physics2D.OverlapCircleAll(attackPos.position, attackRange, enemy);//возвращает массив коллайдеров, находящийся вокруг указанной точки в указанном радиусе
-        for (int i = 0; i < colliders.Length; i++)
+        if (colliders.Length == 0)
         {
-            colliders[i].GetComponent<Entity>().GetDamage();
+            audioSource.PlayOneShot(hit);
+        }
+        else
+        {
+            audioSource.PlayOneShot(hitEnemy);
+            for (int i = 0; i < colliders.Length; i++)
+            {
+                colliders[i].GetComponent<Entity>().GetDamage();
+                if(colliders[i].GetComponent<Entity>().lives!=0)
+                StartCoroutine(EnemyOnAttack(colliders[i]));
+            }
         }
     }
     private void OnDrawGizmosSelected() //нарисовать сферу, показывающую радиус атаки
@@ -99,14 +132,22 @@ public class Hero : Entity
     }
     private bool CheckGround()
     {
-        Collider2D[] collider = Physics2D.OverlapCircleAll(transform.position + transform.up * (-0.1f), 0.2f);//создаём массив коллайдеров(смещение системы кординат к ногам помогает искать колайдеры у ног)
+        Collider2D[] collider = Physics2D.OverlapCircleAll(transform.position + transform.up * (-0.2f), 0.08f);//создаём массив коллайдеров(смещение системы кординат к ногам помогает искать колайдеры у ног)
         isGrounded = collider.Length>1;//(1 - коллайдер персонажа, который тоже считается)
+        Debug.Log(collider.Length);
+        int i = 0;
+        foreach (Collider2D c in collider)
+        {
+            Debug.Log(i++);
+           Debug.Log(transform.position + transform.up * (-0.1f) - c./*gameObject.*/transform.position); ;
+
+        }
         if (!isGrounded) State = States.jump;
         return isGrounded;
     }
     public override void GetDamage()
     {
-        Debug.Log(lives);
+        audioSource.PlayOneShot(damage);
         lives--;
         if (lives >= 1)
             Destroy(hearts[lives].gameObject);
@@ -115,6 +156,13 @@ public class Hero : Entity
             Destroy(hearts[0].gameObject);
             Die();
         }
+    }
+    private IEnumerator EnemyOnAttack(Collider2D enemy) //корутина для эффекта удара по врагу
+    {
+        SpriteRenderer enemyColor = enemy.GetComponentInChildren<SpriteRenderer>();
+        enemyColor.color = new Color(0.95f, 0.49f, 0.43f);
+        yield return new WaitForSeconds(0.2f);
+        enemyColor.color = new Color(1, 1, 1);
     }
 }
 

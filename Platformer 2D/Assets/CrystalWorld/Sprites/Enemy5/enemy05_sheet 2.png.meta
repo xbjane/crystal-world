@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 05cb44b332ff7bf428c4c5eff18d9211
+guid: 022c15648a778e74a8106ec0c9677bc9
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -33,7 +33,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -70,7 +70,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -129,505 +129,505 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: idle,run,jump_sheet_0
+      name: enemy05_sheet_0
       rect:
         serializedVersion: 2
-        x: 11
-        y: 3
-        width: 22
-        height: 36
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 5
+        y: 0
+        width: 26
+        height: 60
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5cf4e9aaa56ba7d499cac124d444a57a
-      internalID: 1109660163
+      spriteID: 2a0a77313b99d314a8749d07a280d6e4
+      internalID: -1118689191
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: idle,run,jump_sheet_1
+      name: enemy05_sheet_1
       rect:
         serializedVersion: 2
-        x: 75
-        y: 3
-        width: 22
-        height: 36
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: c0a4e35df2f88b3409e8a83ece4f92b7
-      internalID: -379746249
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: idle,run,jump_sheet_2
-      rect:
-        serializedVersion: 2
-        x: 139
-        y: 3
-        width: 22
-        height: 36
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: fb68b131f9a1906428b31186ed243282
-      internalID: 630832120
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: idle,run,jump_sheet_3
-      rect:
-        serializedVersion: 2
-        x: 203
-        y: 3
-        width: 22
-        height: 35
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 14a55e65b87253a4dad783f34cecea0a
-      internalID: -849783677
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: idle,run,jump_sheet_4
-      rect:
-        serializedVersion: 2
-        x: 267
-        y: 3
-        width: 21
-        height: 35
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: fed656e007e638b438972415579ff577
-      internalID: -1302971055
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: idle,run,jump_sheet_5
-      rect:
-        serializedVersion: 2
-        x: 331
-        y: 3
-        width: 21
-        height: 35
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: aaef072f303320649ba9c7543485292d
-      internalID: 1023105095
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: idle,run,jump_sheet_6
-      rect:
-        serializedVersion: 2
-        x: 395
-        y: 3
-        width: 21
-        height: 35
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 147c571543f65b5469b86d668a719fa2
-      internalID: 289410367
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: idle,run,jump_sheet_7
-      rect:
-        serializedVersion: 2
-        x: 459
-        y: 3
-        width: 21
-        height: 35
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 03ab7c2cf93147847b7082709d098eb3
-      internalID: -718513699
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: idle,run,jump_sheet_8
-      rect:
-        serializedVersion: 2
-        x: 523
-        y: 3
-        width: 22
-        height: 36
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: b70e59dd54db6f74ca5cc993a695a627
-      internalID: -398415636
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: idle,run,jump_sheet_9
-      rect:
-        serializedVersion: 2
-        x: 588
-        y: 4
-        width: 22
-        height: 35
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 93853c4e413e76a4bbddbb6d31e0343c
-      internalID: 554016989
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: idle,run,jump_sheet_10
-      rect:
-        serializedVersion: 2
-        x: 652
-        y: 4
-        width: 25
-        height: 34
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 9e1c7dd017ba6fc45859b48f6a6ad4dd
-      internalID: 324073531
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: idle,run,jump_sheet_11
-      rect:
-        serializedVersion: 2
-        x: 716
-        y: 3
-        width: 22
-        height: 34
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: f154877b20e58c049b2acc48bd8b4625
-      internalID: -1054454705
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: idle,run,jump_sheet_12
-      rect:
-        serializedVersion: 2
-        x: 780
-        y: 3
-        width: 21
-        height: 35
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 69f21d5319bab7f4b8a4c8fa0f146c07
-      internalID: -2106257704
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: idle,run,jump_sheet_13
-      rect:
-        serializedVersion: 2
-        x: 844
-        y: 4
-        width: 21
-        height: 35
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: cade27d88f650694eab71df42c2814cd
-      internalID: 1569566160
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: idle,run,jump_sheet_14
-      rect:
-        serializedVersion: 2
-        x: 909
-        y: 4
-        width: 20
-        height: 34
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 7ee61d02ba5eebb4aa0084a4bdebcb64
-      internalID: -55285399
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: idle,run,jump_sheet_15
-      rect:
-        serializedVersion: 2
-        x: 974
-        y: 3
-        width: 19
-        height: 34
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 6887bd0dfd82127408ee8d40542ab36b
-      internalID: 566005756
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: idle,run,jump_sheet_16
-      rect:
-        serializedVersion: 2
-        x: 1038
-        y: 3
-        width: 20
-        height: 35
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 5731bf7fa7f1642479f722d6dd8342f1
-      internalID: -418910619
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: idle,run,jump_sheet_17
-      rect:
-        serializedVersion: 2
-        x: 1099
-        y: 3
+        x: 70
+        y: 0
         width: 24
-        height: 35
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        height: 60
+      alignment: 9
+      pivot: {x: 0.5416667, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 24d2c8ad421a89a41a605de90d1971b7
-      internalID: -1967376821
+      spriteID: a7102695dce16ac4db51c0af8ed57fae
+      internalID: 1022299294
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: idle,run,jump_sheet_18
+      name: enemy05_sheet_2
       rect:
         serializedVersion: 2
-        x: 1165
-        y: 4
-        width: 20
-        height: 38
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: b238445800024064693c8a10085ad8d4
-      internalID: -430279823
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: idle,run,jump_sheet_19
-      rect:
-        serializedVersion: 2
-        x: 1226
-        y: 5
-        width: 23
-        height: 38
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 4a9cb212d801276498f04dab47456c73
-      internalID: -2013126936
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: idle,run,jump_sheet_20
-      rect:
-        serializedVersion: 2
-        x: 1290
-        y: 5
-        width: 23
-        height: 38
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: ef8d30fed1a4b9946a4f224ad4b838ee
-      internalID: 38307336
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: idle,run,jump_sheet_21
-      rect:
-        serializedVersion: 2
-        x: 1354
-        y: 5
-        width: 23
-        height: 38
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: e50c84e44612eda43b9e16bef7a56ecf
-      internalID: 1810920458
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: idle,run,jump_sheet_22
-      rect:
-        serializedVersion: 2
-        x: 1418
-        y: 5
+        x: 136
+        y: 0
         width: 22
-        height: 38
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        height: 60
+      alignment: 9
+      pivot: {x: 0.59090906, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2edcc2c077c60de4289911b836a61452
-      internalID: -181538484
+      spriteID: 547fac07e43ed2f49a4a6ae415e37fb6
+      internalID: -1816323469
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: idle,run,jump_sheet_23
+      name: enemy05_sheet_3
       rect:
         serializedVersion: 2
-        x: 1483
-        y: 3
-        width: 21
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 199
+        y: 0
+        width: 24
+        height: 60
+      alignment: 9
+      pivot: {x: 0.5416667, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2434c3749133b964cb35f15604b26c0e
-      internalID: 1750906975
+      spriteID: b0c27c7948a3cd74abb8ed0177f50ee9
+      internalID: 1877997638
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: enemy05_sheet_4
+      rect:
+        serializedVersion: 2
+        x: 261
+        y: 0
+        width: 27
+        height: 59
+      alignment: 9
+      pivot: {x: 0.4814815, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ab217c0fbcfb5d249bd7f330adaa1c93
+      internalID: -1261686154
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: enemy05_sheet_5
+      rect:
+        serializedVersion: 2
+        x: 325
+        y: 0
+        width: 28
+        height: 59
+      alignment: 9
+      pivot: {x: 0.4642857, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cd9fffe6aa133d048b5e5d0589808d2b
+      internalID: 1073020262
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: enemy05_sheet_6
+      rect:
+        serializedVersion: 2
+        x: 391
+        y: 0
+        width: 24
+        height: 60
+      alignment: 9
+      pivot: {x: 0.5416667, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b67714e34872c294cb79c2efd6869ea8
+      internalID: -167873574
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: enemy05_sheet_7
+      rect:
+        serializedVersion: 2
+        x: 454
+        y: 0
+        width: 26
+        height: 60
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 81fb223fe98e80a4593ae7afdf12d237
+      internalID: -251359550
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: enemy05_sheet_8
+      rect:
+        serializedVersion: 2
+        x: 517
+        y: 0
+        width: 26
+        height: 60
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ed69a117f9902ad40b1cc767298f6f47
+      internalID: 263885987
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: enemy05_sheet_9
+      rect:
+        serializedVersion: 2
+        x: 581
+        y: 0
+        width: 28
+        height: 54
+      alignment: 9
+      pivot: {x: 0.4642857, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 606a86ff8a695ab4aa05a692481dfb33
+      internalID: -2050080080
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: enemy05_sheet_10
+      rect:
+        serializedVersion: 2
+        x: 645
+        y: 0
+        width: 28
+        height: 54
+      alignment: 9
+      pivot: {x: 0.4642857, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bb07552c845ad9247b1893e2ffa89c91
+      internalID: 1554427059
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: enemy05_sheet_11
+      rect:
+        serializedVersion: 2
+        x: 706
+        y: 0
+        width: 32
+        height: 55
+      alignment: 9
+      pivot: {x: 0.40625, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 131ba883ae1a28a43916dc95402a81c3
+      internalID: -1366410788
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: enemy05_sheet_12
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 0
+        width: 34
+        height: 54
+      alignment: 9
+      pivot: {x: 0.38235295, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ba959831d292559449d4d573c6e8c270
+      internalID: 1098087770
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: enemy05_sheet_13
+      rect:
+        serializedVersion: 2
+        x: 834
+        y: 0
+        width: 33
+        height: 55
+      alignment: 9
+      pivot: {x: 0.3939394, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8329799ce76830847a192c3de81662e9
+      internalID: 406510651
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: enemy05_sheet_14
+      rect:
+        serializedVersion: 2
+        x: 901
+        y: 0
+        width: 29
+        height: 56
+      alignment: 9
+      pivot: {x: 0.44827586, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 580dabc03f84c26408c7a252e34ec5e6
+      internalID: 898574396
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: enemy05_sheet_15
+      rect:
+        serializedVersion: 2
+        x: 965
+        y: 0
+        width: 32
+        height: 53
+      alignment: 9
+      pivot: {x: 0.40625, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8c2d405bdb277e944ac6a44dc4d237ae
+      internalID: 688823549
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: enemy05_sheet_16
+      rect:
+        serializedVersion: 2
+        x: 1026
+        y: 0
+        width: 58
+        height: 54
+      alignment: 9
+      pivot: {x: 0.22413793, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c6084c12486432d4896e2870f4034a3d
+      internalID: -279036081
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: enemy05_sheet_17
+      rect:
+        serializedVersion: 2
+        x: 1092
+        y: 0
+        width: 58
+        height: 55
+      alignment: 9
+      pivot: {x: 0.22413793, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 887581b1d3921c245b2c9d36be127f4c
+      internalID: 550755455
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: enemy05_sheet_18
+      rect:
+        serializedVersion: 2
+        x: 1156
+        y: 0
+        width: 60
+        height: 54
+      alignment: 9
+      pivot: {x: 0.21666667, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3581233490f2bbb4ab73e97e7b0e44c0
+      internalID: -1398818341
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: enemy05_sheet_19
+      rect:
+        serializedVersion: 2
+        x: 1222
+        y: 0
+        width: 28
+        height: 54
+      alignment: 9
+      pivot: {x: 0.4642857, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6fd0fa9ed57c8e241abb90a484b60081
+      internalID: -708184090
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: enemy05_sheet_20
+      rect:
+        serializedVersion: 2
+        x: 1287
+        y: 0
+        width: 22
+        height: 59
+      alignment: 9
+      pivot: {x: 0.59090906, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 371fdf8725cfee44c81de69b5301dd6a
+      internalID: 426920540
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: enemy05_sheet_21
+      rect:
+        serializedVersion: 2
+        x: 1349
+        y: 0
+        width: 28
+        height: 61
+      alignment: 9
+      pivot: {x: 0.4642857, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 61967b5e1981ded4ab7b037c0ec71b3b
+      internalID: -1391691195
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: enemy05_sheet_22
+      rect:
+        serializedVersion: 2
+        x: 1415
+        y: 0
+        width: 28
+        height: 62
+      alignment: 9
+      pivot: {x: 0.4642857, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3f0d929c904c0f648aedda37db5948d3
+      internalID: 605832875
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: enemy05_sheet_23
+      rect:
+        serializedVersion: 2
+        x: 1477
+        y: 0
+        width: 33
+        height: 64
+      alignment: 9
+      pivot: {x: 0.3939394, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7685c66b3579a7e469b811c2913c44fd
+      internalID: -1449931041
       vertices: []
       indices: 
       edges: []
@@ -643,30 +643,30 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      idle,run,jump_sheet_19: -2013126936
-      idle,run,jump_sheet_8: -398415636
-      idle,run,jump_sheet_7: -718513699
-      idle,run,jump_sheet_10: 324073531
-      idle,run,jump_sheet_2: 630832120
-      idle,run,jump_sheet_4: -1302971055
-      idle,run,jump_sheet_1: -379746249
-      idle,run,jump_sheet_21: 1810920458
-      idle,run,jump_sheet_9: 554016989
-      idle,run,jump_sheet_13: 1569566160
-      idle,run,jump_sheet_18: -430279823
-      idle,run,jump_sheet_3: -849783677
-      idle,run,jump_sheet_6: 289410367
-      idle,run,jump_sheet_14: -55285399
-      idle,run,jump_sheet_5: 1023105095
-      idle,run,jump_sheet_17: -1967376821
-      idle,run,jump_sheet_0: 1109660163
-      idle,run,jump_sheet_15: 566005756
-      idle,run,jump_sheet_20: 38307336
-      idle,run,jump_sheet_22: -181538484
-      idle,run,jump_sheet_16: -418910619
-      idle,run,jump_sheet_12: -2106257704
-      idle,run,jump_sheet_23: 1750906975
-      idle,run,jump_sheet_11: -1054454705
+      enemy05_sheet_1: 1022299294
+      enemy05_sheet_9: -2050080080
+      enemy05_sheet_7: -251359550
+      enemy05_sheet_10: 1554427059
+      enemy05_sheet_6: -167873574
+      enemy05_sheet_11: -1366410788
+      enemy05_sheet_3: 1877997638
+      enemy05_sheet_14: 898574396
+      enemy05_sheet_12: 1098087770
+      enemy05_sheet_23: -1449931041
+      enemy05_sheet_5: 1073020262
+      enemy05_sheet_16: -279036081
+      enemy05_sheet_18: -1398818341
+      enemy05_sheet_22: 605832875
+      enemy05_sheet_15: 688823549
+      enemy05_sheet_21: -1391691195
+      enemy05_sheet_8: 263885987
+      enemy05_sheet_19: -708184090
+      enemy05_sheet_4: -1261686154
+      enemy05_sheet_20: 426920540
+      enemy05_sheet_0: -1118689191
+      enemy05_sheet_17: 550755455
+      enemy05_sheet_13: 406510651
+      enemy05_sheet_2: -1816323469
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

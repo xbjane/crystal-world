@@ -4,15 +4,16 @@ using UnityEngine;
 
 public class Entity : MonoBehaviour //скрипт для начлежования всем монстрам
 {
-   internal int lives;
-   public virtual void GetDamage() 
+    internal int lives;
+    public virtual void GetDamage() 
     {
-        lives--;
-        if (lives < 1)
-            Die();
+        //lives--;
+        //if (lives < 1)
+        //    Die();
     }
     public virtual void Die()
     {
         Destroy(this.gameObject);
     }
 }
+

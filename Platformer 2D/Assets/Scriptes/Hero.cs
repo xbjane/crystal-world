@@ -12,6 +12,7 @@ public class Hero : Entity
     public AudioClip hitEnemy;
     public bool isAttacking;
     public bool isRecharged;
+    public bool isHit;
     public Transform attackPos; //позици€ атаки
     public float attackRange; //дальность атаки
     public LayerMask enemy; //слой с врагами
@@ -22,9 +23,8 @@ public class Hero : Entity
     //private int allLives;
     private bool isJumping;
     private Rigidbody2D rb; //ссылки на компоненты
-    private Animator anim;
     private SpriteRenderer sprite;
-
+    private Animator anim;
     public Joystick joystick;
     public static Hero Instance { get; set; } //сингелтон, позвол€ющий использовать обращение ко все публичным пол€м и методам без создани€ экхемпл€ра класса
     private States State //создаЄм свойство типа State(по названию списка)
@@ -43,13 +43,14 @@ public class Hero : Entity
         //    isJumping = false;
         isJumping =false;
         isAttacking = false;
+        isHit = false;
         isRecharged = true;
         lives = 3;
     }
     private void FixedUpdate()
     {
         isGrounded = CheckGround();
-        if (isGrounded) State = States.idle;//если на земле, значит стоим
+        if (isGrounded&&!isHit && !isAttacking) State = States.idle;//если на земле, значит стоим
         if (!isAttacking && joystick.Horizontal!=0)
             Run();
         if (!isAttacking && isGrounded && joystick.Vertical >= 0.5)
@@ -89,7 +90,6 @@ public class Hero : Entity
     {
         if (isGrounded && isRecharged)
         {
-            Debug.Log("Attack");
             State = States.attack;
             isAttacking = true;
             isRecharged = false;
@@ -99,7 +99,7 @@ public class Hero : Entity
     }
     private IEnumerator AttackAnimation() //подсчЄт времени атаки 
     {
-        yield return new WaitForSeconds(0.4f); //отдать процессорное врем€ основному потоку и продолжить спуст€ указанное врем€
+        yield return new WaitForSeconds(0.35f); //отдать процессорное врем€ основному потоку и продолжить спуст€ указанное врем€
         isAttacking = false;
     }
     private IEnumerator AttackCoolDown() //подсчЄт времени перезар€дки
@@ -119,11 +119,19 @@ public class Hero : Entity
             audioSource.PlayOneShot(hitEnemy);
             for (int i = 0; i < colliders.Length; i++)
             {
-                colliders[i].GetComponent<Entity>().GetDamage();
-                if(colliders[i].GetComponent<Entity>().lives!=0)
-                StartCoroutine(EnemyOnAttack(colliders[i]));
+                //colliders[i].GetComponent<Entity>().GetDamage();
+               // if (colliders[i].GetComponent<Entity>().lives != 0)
+                    DamageToEntity(colliders[i]);
+                //    colliders[i].GetComponent<Entity>().
+                //colliders[i].GetComponent<Entity>().
+                //StartCoroutine(EnemyOnAttack(colliders[i]));
             }
         }
+    }
+    private void DamageToEntity(Collider2D collider)
+    {
+        if (collider.GetComponent<Entity>() is WalkingMonster/*|| collider.GetComponent<Entity>() is Worm*/)
+            collider.GetComponent<Entity>().GetDamage();
     }
     private void OnDrawGizmosSelected() //нарисовать сферу, показывающую радиус атаки
     {
@@ -133,43 +141,42 @@ public class Hero : Entity
     private bool CheckGround()
     {
         Collider2D[] collider = Physics2D.OverlapCircleAll(transform.position + transform.up * (-0.2f), 0.08f);//создаЄм массив коллайдеров(смещение системы кординат к ногам помогает искать колайдеры у ног)
-        isGrounded = collider.Length>1;//(1 - коллайдер персонажа, который тоже считаетс€)
-        Debug.Log(collider.Length);
-        int i = 0;
-        foreach (Collider2D c in collider)
-        {
-            Debug.Log(i++);
-           Debug.Log(transform.position + transform.up * (-0.1f) - c./*gameObject.*/transform.position); ;
-
-        }
+        isGrounded = collider.Length>1;//(1 - коллайдер персонажа, который тоже считаетс€)     
         if (!isGrounded) State = States.jump;
         return isGrounded;
     }
     public override void GetDamage()
     {
         audioSource.PlayOneShot(damage);
+            Destroy(hearts[lives-1].gameObject);
         lives--;
-        if (lives >= 1)
-            Destroy(hearts[lives].gameObject);
-        else
-        {
-            Destroy(hearts[0].gameObject);
+        if(lives==0)
             Die();
-        }
+        isHit = true;
+        StartCoroutine(HitAnimation());
+        for (int i=0;i<3;i++)
+        State = States.hit;      
     }
-    private IEnumerator EnemyOnAttack(Collider2D enemy) //корутина дл€ эффекта удара по врагу
+    private IEnumerator HitAnimation()
     {
-        SpriteRenderer enemyColor = enemy.GetComponentInChildren<SpriteRenderer>();
-        enemyColor.color = new Color(0.95f, 0.49f, 0.43f);
-        yield return new WaitForSeconds(0.2f);
-        enemyColor.color = new Color(1, 1, 1);
+        yield return new WaitForSeconds(0.767f);
+        isHit = false;
+    }
+    //private IEnumerator EnemyOnAttack(Collider2D enemy) //корутина дл€ эффекта удара по врагу
+    //{
+    //    SpriteRenderer enemyColor = enemy.GetComponentInChildren<SpriteRenderer>();
+    //    enemyColor.color = new Color(0.95f, 0.49f, 0.43f);
+    //    yield return new WaitForSeconds(0.2f);
+    //    enemyColor.color = new Color(1, 1, 1);
+    //}
+    private enum States//список состо€ний
+    {
+        idle,
+        run,
+        jump,
+        attack, 
+        hit,
+        death,
     }
 }
 
-public enum States//список состо€ний
-{
-    idle, 
-    run,
-    jump,
-    attack
-}

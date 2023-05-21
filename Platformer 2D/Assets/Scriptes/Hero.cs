@@ -13,6 +13,7 @@ public class Hero : Entity
     public bool isAttacking;
     public bool isRecharged;
     public bool isHit;
+    public bool isDead;
     public Transform attackPos; //позиция атаки
     public float attackRange; //дальность атаки
     public LayerMask enemy; //слой с врагами
@@ -44,17 +45,21 @@ public class Hero : Entity
         isJumping =false;
         isAttacking = false;
         isHit = false;
+        isDead = false;
         isRecharged = true;
         lives = 3;
     }
     private void FixedUpdate()
     {
-        isGrounded = CheckGround();
-        if (isGrounded&&!isHit && !isAttacking) State = States.idle;//если на земле, значит стоим
-        if (!isAttacking && joystick.Horizontal!=0)
-            Run();
-        if (!isAttacking && isGrounded && joystick.Vertical >= 0.5)
-            Jump();
+        if (!isDead)
+        {
+            isGrounded = CheckGround();
+            if (isGrounded && !isHit && !isAttacking) State = States.idle;//если на земле, значит стоим
+            if (!isAttacking && joystick.Horizontal != 0)
+                Run();
+            if (!isAttacking && isGrounded && joystick.Vertical >= 0.5)
+                Jump();
+        }
         //if (lives < allLives)
         //{
         //    allLives--;
@@ -121,16 +126,16 @@ public class Hero : Entity
             {
                 //colliders[i].GetComponent<Entity>().GetDamage();
                // if (colliders[i].GetComponent<Entity>().lives != 0)
-                    DamageToEntity(colliders[i]);
+                    DamageToEnemy(colliders[i]);
                 //    colliders[i].GetComponent<Entity>().
                 //colliders[i].GetComponent<Entity>().
                 //StartCoroutine(EnemyOnAttack(colliders[i]));
             }
         }
     }
-    private void DamageToEntity(Collider2D collider)
+    private void DamageToEnemy(Collider2D collider)
     {
-        if (collider.GetComponent<Entity>() is WalkingMonster/*|| collider.GetComponent<Entity>() is Worm*/)
+        if (collider.GetComponent<Entity>() is Enemy/*|| collider.GetComponent<Entity>() is Worm*/)
             collider.GetComponent<Entity>().GetDamage();
     }
     private void OnDrawGizmosSelected() //нарисовать сферу, показывающую радиус атаки
@@ -145,17 +150,35 @@ public class Hero : Entity
         if (!isGrounded) State = States.jump;
         return isGrounded;
     }
+    public override void Die()
+    {
+        Debug.Log("Die()");
+        State = States.death;
+        isDead = true;
+        StartCoroutine(Death());      
+    }
+    private IEnumerator Death()
+    {
+        yield return new WaitForSeconds(0.767f);
+        //Destroy(this.gameObject);
+    }
     public override void GetDamage()
     {
-        audioSource.PlayOneShot(damage);
-            Destroy(hearts[lives-1].gameObject);
-        lives--;
-        if(lives==0)
-            Die();
-        isHit = true;
-        StartCoroutine(HitAnimation());
-        for (int i=0;i<3;i++)
-        State = States.hit;      
+        if (!isHit)
+        {
+            audioSource.PlayOneShot(damage);
+            lives--;
+            Destroy(hearts[lives].gameObject);
+            if (lives == 0)
+                Die();
+            if (!isDead)
+            {
+                isHit = true;
+                StartCoroutine(HitAnimation());
+                //for (int i=0;i<3;i++)
+                State = States.hit;
+            }
+        }
     }
     private IEnumerator HitAnimation()
     {

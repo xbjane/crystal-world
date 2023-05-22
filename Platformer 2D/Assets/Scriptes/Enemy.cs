@@ -12,7 +12,9 @@ public class Enemy : /*Enemy*/ Entity
     private SpriteRenderer sprite;
     private Animator anim;
     private bool isHit;
+    private bool isDead;
     private bool isALet;
+    public GameObject crystal;
     //private bool isHero;
     private Collider2D colliderOfHero;
     private States State
@@ -26,6 +28,7 @@ public class Enemy : /*Enemy*/ Entity
         sprite = GetComponentInChildren<SpriteRenderer>();
         isHit = false;
         isALet = false;
+        isDead = false;
         colliderOfHero = null;
         //isHero = false;
     }
@@ -34,9 +37,9 @@ public class Enemy : /*Enemy*/ Entity
         dir = transform.right;
         lives = 3;
     }
-    private void Update()
+    private void FixedUpdate()
     {
-        if (!isHit)
+        if (!isHit&&!isDead)
         {
             //if (CheckLets())
             //    State = States.idle;
@@ -164,8 +167,23 @@ public class Enemy : /*Enemy*/ Entity
         StartCoroutine(HitAnimation());
         State = States.hit;
         if (lives < 1)
-            Die();
+        {
+            State = States.destroy;
+            isDead = true;
+            //StartCoroutine(DestroyAnimation());
+        }
     }
+    //private IEnumerator DestroyAnimation()
+    //{
+    //    yield return new WaitForSeconds(0.583f);      
+    //}
+    private void OnDestroyEnemy()
+    {
+        Vector2 posOfReward = transform.position;
+        Die();
+        Instantiate(crystal, posOfReward, Quaternion.identity);
+    }
+
     private IEnumerator HitAnimation()
     {
         yield return new WaitForSeconds(0.233f);
@@ -210,7 +228,8 @@ public class Enemy : /*Enemy*/ Entity
         idle,
         walk,
         attack,
-        hit
+        hit, 
+        destroy
     }
 }
 

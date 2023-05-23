@@ -41,8 +41,6 @@ public class Hero : Entity
         sprite = GetComponentInChildren<SpriteRenderer>();//компонент находится в дочернем элементе (sprite)
         Instance = this;
         isGrounded = CheckGround();
-        //if (isGrounded)
-        //    isJumping = false;
         isJumping =false;
         isAttacking = false;
         isHit = false;
@@ -61,18 +59,13 @@ public class Hero : Entity
             if (!isAttacking && isGrounded && joystick.Vertical >= 0.5)
                 Jump();
         }
-        //if (lives < allLives)
-        //{
-        //    allLives--;
-        //    Destroy(hearts[lives - 1]);
-        //}
-
     }
     private void Jump()
     {
         if (!isJumping)
         {
             isJumping = true;
+            Handheld.Vibrate();
             State = States.jump;
             rb.velocity = Vector2.up * jumpForce; //линейная скорость по направлению
             audioSource.PlayOneShot(jump);
@@ -125,12 +118,7 @@ public class Hero : Entity
             audioSource.PlayOneShot(hitEnemy);
             for (int i = 0; i < colliders.Length; i++)
             {
-                //colliders[i].GetComponent<Entity>().GetDamage();
-               // if (colliders[i].GetComponent<Entity>().lives != 0)
                     DamageToEnemy(colliders[i]);
-                //    colliders[i].GetComponent<Entity>().
-                //colliders[i].GetComponent<Entity>().
-                //StartCoroutine(EnemyOnAttack(colliders[i]));
             }
         }
     }
@@ -153,15 +141,16 @@ public class Hero : Entity
     }
     public override void Die()
     {
-        Debug.Log("Die()");
         State = States.death;
         isDead = true;
+        SaveScore.scoreToSave = ScoreCount.Instance.score;
+        SaveScore.SaveGameScore();
         StartCoroutine(Death());      
     }
     private IEnumerator Death()
     {
-        yield return new WaitForSeconds(0.767f);
-        //Destroy(this.gameObject);
+        yield return new WaitForSeconds(0.800f);
+        SceneLoader.Load(SceneLoader.Scenes.menu);
     }
     public override void GetDamage()
     {
@@ -186,13 +175,6 @@ public class Hero : Entity
         yield return new WaitForSeconds(0.767f);
         isHit = false;
     }
-    //private IEnumerator EnemyOnAttack(Collider2D enemy) //корутина для эффекта удара по врагу
-    //{
-    //    SpriteRenderer enemyColor = enemy.GetComponentInChildren<SpriteRenderer>();
-    //    enemyColor.color = new Color(0.95f, 0.49f, 0.43f);
-    //    yield return new WaitForSeconds(0.2f);
-    //    enemyColor.color = new Color(1, 1, 1);
-    //}
     private enum States//список состояний
     {
         idle,

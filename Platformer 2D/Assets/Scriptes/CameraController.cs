@@ -6,7 +6,7 @@ public class CameraController : MonoBehaviour
 {
     [SerializeField] private Transform player;
     private Vector3 pos;//для записи координаты движения
-
+    public Canvas menuCanvas;
     private void Awake()//поиск игрока
     {
         if (!player)//проверка найден ли игрок
@@ -25,4 +25,8 @@ public class CameraController : MonoBehaviour
         pos.z = -10f;//фиксируем положение камеры, чтобы она не приближалась к игроку
         transform.position = Vector3.Lerp(transform.position, pos, Time.deltaTime);//перемещаем туда камеру, метод Lerp делает движение плавным
     }
+    //public void StartGame()
+    //{
+    //    menuCanvas.gameObject.SetActive(false);
+    //}
 }

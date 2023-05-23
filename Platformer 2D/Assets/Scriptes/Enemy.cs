@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy : /*Enemy*/ Entity
+public class Enemy : Entity
 {
     public float attackRadius;
     public float pivotRightDist;
@@ -13,10 +13,7 @@ public class Enemy : /*Enemy*/ Entity
     private Animator anim;
     private bool isHit;
     private bool isDead;
-    private bool isALet;
     public GameObject crystal;
-    //private bool isHero;
-    private Collider2D colliderOfHero;
     private States State
     {
         get { return (States)anim.GetInteger("state"); }
@@ -27,10 +24,7 @@ public class Enemy : /*Enemy*/ Entity
         anim = GetComponent<Animator>();
         sprite = GetComponentInChildren<SpriteRenderer>();
         isHit = false;
-        isALet = false;
         isDead = false;
-        colliderOfHero = null;
-        //isHero = false;
     }
     private void Start()
     {
@@ -41,125 +35,60 @@ public class Enemy : /*Enemy*/ Entity
     {
         if (!isHit&&!isDead)
         {
-            //if (CheckLets())
-            //    State = States.idle;
-            //else
-            //{
-            //    State = States.walk;
-            //    Move();
-            //}
             Behavior();
         }
     }
     private void Behavior()
     {
-        Collider2D[] rightColliders = Physics2D.OverlapCircleAll(transform.position/* + transform.up * 0.5f*/ + transform.right * dir.x * pivotRightDist, radiusOfLets);
-        if (rightColliders.Length > 1)
+        if (Hero.Instance.isDead)
         {
-            bool isHero = false;
-            foreach (Collider2D c in rightColliders)
+            State = States.idle;
+            return;
+        }
+        else
+        {
+            Collider2D[] rightColliders = Physics2D.OverlapCircleAll(transform.position/* + transform.up * 0.5f*/ + transform.right * dir.x * pivotRightDist, radiusOfLets);
+            if (rightColliders.Length > 1 && !(rightColliders.Length == 2 && rightColliders[0].gameObject.tag == "crystal"))
             {
-                if (c.gameObject == Hero.Instance.gameObject && !Hero.Instance.isDead)
+                bool isHero = false;
+                CheckLets(rightColliders, ref isHero);
+                if (!isHero)
                 {
-                    isHero = true;
-                    State = States.attack;
-                    return;
+                    dir.x *= -1f;
+                    sprite.flipX = dir.x < 0.0f;
+                    Collider2D[] leftColliders = Physics2D.OverlapCircleAll(transform.position/* + transform.up * 0.5f*/ + transform.right * dir.x * pivotRightDist, radiusOfLets);
+                    if (leftColliders.Length > 1 && !(leftColliders.Length == 2 && leftColliders[0].gameObject.tag == "crystal"))
+                    {
+                        CheckLets(leftColliders, ref isHero);
+                        if (!isHero)
+                            State = States.idle;
+                        else return;
+                    }
                 }
+                else return;
             }
-            if (Hero.Instance.isDead)
+            State = States.walk;
+            transform.position = Vector3.MoveTowards(transform.position, transform.position + dir, speed * Time.deltaTime);//перемещение врага
+
+        }
+    }
+    private void CheckLets(Collider2D[] colliders, ref bool isHero)
+    {
+        foreach (Collider2D c in colliders)
+        {
+            if (c.gameObject == Hero.Instance.gameObject && !Hero.Instance.isDead)
             {
-                State = States.idle;
+                isHero = true;
+                State = States.attack;
                 return;
             }
-            if (!isHero)
-            {
-                dir.x *= -1f;
-                sprite.flipX =dir.x<0.0f;
-                Collider2D[] leftColliders = Physics2D.OverlapCircleAll(transform.position/* + transform.up * 0.5f*/ + transform.right * dir.x * pivotRightDist, radiusOfLets);
-                if (leftColliders.Length > 1)
-                {
-                    foreach (Collider2D c in leftColliders)
-                    {
-                        if (c.gameObject == Hero.Instance.gameObject && !Hero.Instance.isDead)
-                        {
-                            isHero = true;
-                            State = States.attack;
-                            return;
-                        }
-                    }
-                    if (!isHero|| Hero.Instance.isDead)
-                    {
-                        State = States.idle;
-                        return;
-                    }
-                }
-            }
+            //else if (Hero.Instance.isDead)
+            //{
+            //    State = States.idle;
+            //    return;
+            //}
         }
-        State = States.walk;
-        transform.position = Vector3.MoveTowards(transform.position, transform.position + dir, speed * Time.deltaTime);//перемещение врага
     }
-    //private bool CheckLets()
-    //{
-    //    List<Collider2D> rightColliders = new List<Collider2D>();
-    //    rightColliders.AddRange(Physics2D.OverlapCircleAll(transform.position/* + transform.up * 0.5f*/ + transform.right * dir.x * pivotRightDist, radiusOfLets));
-    //    if (rightColliders.Count > 1)
-    //    {
-    //        foreach (Collider2D c in rightColliders)
-    //        {
-    //            Debug.Log(c.name);
-    //            if (c.gameObject == Hero.Instance.gameObject && !Hero.Instance.isDead)
-    //            {
-    //                State = States.attack;
-    //                return false;
-    //            }
-    //        }
-    //        isALet = true;
-    //    }
-    //    //colliders.Clear();
-    //    List<Collider2D> leftColliders = new List<Collider2D>();
-    //    leftColliders.AddRange(Physics2D.OverlapCircleAll(transform.position /*+ *//*transform.up * 0.1f*/ + transform.right * (-dir.x) * pivotRightDist, radiusOfLets));
-    //    if (isALet && leftColliders.Count>1)
-    //    {
-    //        foreach (Collider2D c in rightColliders)
-    //        {
-    //            Debug.Log(c.name);
-    //            if (c.gameObject == Hero.Instance.gameObject && !Hero.Instance.isDead)
-    //            {
-    //                sprite.flipX = true;
-    //                 State = States.attack;
-    //                return false;
-    //            }
-    //        }
-    //        return true;
-    //    }
-    //    return false;
-    //}
-    //private void Move()
-    //{
-    //    //Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position /*+ transform.up * 0.1f*/ + transform.right * dir.x * pivotRightDist, radiusOfLets);//возвращает массив коллайдеров, находящийся вокруг указанной точки в указанном радиусе
-    //    //if (colliders.Length > 1)
-    //    //{
-    //    if (colliderOfHero != null)
-    //    {
-    //        Debug.Log(colliderOfHero.name);
-    //        State = States.attack;
-    //        colliderOfHero = null;
-    //    }
-    //    // bool isHero = false;
-    //    //foreach (Collider2D c in colliders)
-    //    //{
-    //    //    //if (c.gameObject == Hero.Instance.gameObject && !Hero.Instance.isDead)
-    //    //{
-    //    //isHero = true;
-
-    //    // break;
-    //    //}
-    //    //}
-    //    if (Physics2D.OverlapCircleAll(transform.position /*+ transform.up * 0.1f*/ + transform.right * dir.x * pivotRightDist, radiusOfLets).Length>1)//возвращает массив коллайдеров, находящийся вокруг указанной точки в указанном радиусе)
-    //            dir.x *= -1f; //меняем направление движения на противоположное          
-    //    transform.position = Vector3.MoveTowards(transform.position, transform.position + dir, speed * Time.deltaTime);//перемещение врага
-    //    sprite.flipX = dir.x < 0.0f; //поворот монстра(переключение галочки)
-    //}
     public override void GetDamage()
     {
         lives--;
@@ -170,28 +99,18 @@ public class Enemy : /*Enemy*/ Entity
         {
             State = States.destroy;
             isDead = true;
-            //StartCoroutine(DestroyAnimation());
         }
     }
-    //private IEnumerator DestroyAnimation()
-    //{
-    //    yield return new WaitForSeconds(0.583f);      
-    //}
     private void OnDestroyEnemy()
     {
         Vector2 posOfReward = transform.position;
         Die();
         Instantiate(crystal, posOfReward, Quaternion.identity);
     }
-
     private IEnumerator HitAnimation()
     {
         yield return new WaitForSeconds(0.233f);
         isHit = false;
-    }
-    private IEnumerator AttackHero()
-    {
-        yield return new WaitForSeconds(0.4f);
     }
     private void OnAttack()
     {
@@ -205,24 +124,11 @@ public class Enemy : /*Enemy*/ Entity
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        Debug.Log(collision.gameObject.name);
         if (collision.gameObject.name == "Hero" && !Hero.Instance.isHit && !Hero.Instance.isAttacking && !Hero.Instance.isDead)
         {
-            Debug.Log("OnCollision1");
             Hero.Instance.GetDamage();
         }
      }
-    private struct ColliderOfHero
-    {
-        Collider2D collider;
-        bool isHero;
-        public ColliderOfHero(Collider2D collider/*, bool isHero=true*/)
-        {
-            this.collider = collider;
-            isHero = true;
-        }
-
-    }
     private enum States
     {
         idle,

@@ -8,19 +8,55 @@ using System.IO;
 
 public class SaveScore : MonoBehaviour
 {
-    public static int scoreToSave;
+    public static int score;
+    private static int loadedScore;
+    private static int[] scores;
+    private bool isEmpty;
     public Text scoreText;
     public static SaveScore Instance;
     private void Start()
     {
-        Instance = this; 
+        Instance = this;
+        scores = new int[5];
     }
-    public static void SaveGameScore()
+    public void CheckScore() 
+    {
+        LoadGameScore();
+        if (isEmpty)
+            for (int i = 0; i < scores.Length; i++)
+                scores[i] = 0;
+        loadedScore = scores[4];
+        Debug.Log("score " + score);
+        if (score > loadedScore)
+        {
+            scores[4] = score;
+            Debug.Log("score > loadedScore");
+            int i = 4;
+            while(i>0)
+            {
+                Debug.Log(scores[i] + ":"+ scores[i - 1]);
+                if (scores[i] > scores[i - 1])
+                    Swap(ref scores[i], ref scores[i-1]);
+                else break;
+                i--;
+            }
+            SaveGameScore();
+        }
+    }
+    private void Swap(ref int a, ref int b)
+    {
+        int n = a;
+        a = b;
+        b = n;
+    }
+    private void SaveGameScore()
     {
         BinaryFormatter bF = new BinaryFormatter();//объект необходимый дл€ сериализации/десериализации, отвечает за перевод инфы в поток бинарных данных
         FileStream file = File.Create(Application.persistentDataPath + "/MySavedData.dat");//созлаЄм бинарный файл по кончтантному адресу дл€ пользовательских данных
         SavedData data = new SavedData();//создаЄм экземпл€р класса 
-        data.savedScore = scoreToSave;//записываем в него данные, необходимые к сохранению
+        data.savedScore = scores;//записываем в него данные, необходимые к сохранению
+        Debug.Log("Save" + scores[0]);
+        Debug.Log("SaveData" + data.savedScore[0]);
         bF.Serialize(file, data);//сериализуем данные экземпл€ра и отправл€ем в файл
         file.Close();
         Debug.Log("Data Saved!!");
@@ -33,12 +69,15 @@ public class SaveScore : MonoBehaviour
             FileStream file = File.Open(Application.persistentDataPath + "/MySavedData.dat", FileMode.Open);
             SavedData data = (SavedData)bF.Deserialize(file);
             file.Close();
-            scoreToSave = data.savedScore;
+            scores = data.savedScore;
+            Debug.Log("Load" + scores[0]);
+            Debug.Log("LoadData" + data.savedScore[0]);
             Debug.Log("Game Data Loaded!!");
+            isEmpty = false;
         }
         else
         {
-            Debug.LogError("No Saved Data!!");
+            isEmpty = true;
         }
     }
    public void ResetData()
@@ -47,18 +86,29 @@ public class SaveScore : MonoBehaviour
         {
             BinaryFormatter bF = new BinaryFormatter();
           File.Delete(Application.persistentDataPath + "/MySavedData.dat");
-            scoreToSave = 0;
-            scoreText.text = scoreToSave.ToString();
+            Array.Clear(scores,0,5);
+            scoreText.text = "Lets play to have records!";
+            //scoreText.text = scoreToSave.ToString();
             Debug.Log("Data Reset Complete!!");
         }
-        else
-        {
-            Debug.LogError("NoSavedDataToDelete");
-        }
+        //else
+        //{
+        //    Debug.LogError("NoSavedDataToDelete");
+        //}
     }
     public void Print()
     {
         LoadGameScore();
-        scoreText.text = scoreToSave.ToString();
+        int i = 1;
+        if(scores[0]==0)
+            scoreText.text = "Lets play to have records!";
+        else
+        foreach (int s in scores)
+        {
+                if (s == 0)
+                    break;
+            scoreText.text +=i.ToString()+ ". "+ s.ToString()+ "\n";
+                i++;
+        }
     }
 }

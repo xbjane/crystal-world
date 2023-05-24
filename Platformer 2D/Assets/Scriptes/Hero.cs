@@ -143,8 +143,8 @@ public class Hero : Entity
     {
         State = States.death;
         isDead = true;
-        SaveScore.scoreToSave = ScoreCount.Instance.score;
-        SaveScore.SaveGameScore();
+        SaveScore.score = ScoreCount.Instance.score;
+        SaveScore.Instance.CheckScore();
         StartCoroutine(Death());      
     }
     private IEnumerator Death()

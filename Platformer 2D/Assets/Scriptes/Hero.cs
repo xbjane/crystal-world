@@ -7,6 +7,7 @@ using TMPro;
 public class Hero : Entity
 {
     [SerializeField] AudioSource audioSource;
+    [SerializeField] TMP_Text youDiedText;
     public AudioClip jump;
     public AudioClip damage;
     public AudioClip hit;
@@ -59,6 +60,8 @@ public class Hero : Entity
             if (!isAttacking && isGrounded && joystick.Vertical >= 0.5)
                 Jump();
         }
+        if (transform.position.y < -7f)
+            Die();
     }
     private void Jump()
     {
@@ -144,12 +147,31 @@ public class Hero : Entity
         State = States.death;
         isDead = true;
         SaveScore.score = ScoreCount.Instance.score;
+        Debug.Log(ScoreCount.Instance.score);
         SaveScore.Instance.CheckScore();
-        StartCoroutine(Death());      
+        StartCoroutine(YouDied());
+        StartCoroutine(Death());
     }
     private IEnumerator Death()
     {
         yield return new WaitForSeconds(0.900f);
+      
+    }
+    private IEnumerator YouDied()
+    {
+        int i = 0;
+        while (i < 3)
+        {
+            Debug.Log("YouDied!");
+            Debug.Log(i);
+            yield return new WaitForSeconds(0.300f);
+            youDiedText.gameObject.SetActive(true);
+            yield return new WaitForSeconds(0.300f);
+            youDiedText.gameObject.SetActive(false);
+            i++;
+        }
+      //  youDiedText.gameObject.SetActive(false);
+        yield return new WaitForSeconds(0.300f);
         SceneLoader.Load(SceneLoader.Scenes.menu);
     }
     public override void GetDamage()

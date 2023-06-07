@@ -149,7 +149,7 @@ public class Hero : Entity
     }
     private IEnumerator Death()
     {
-        yield return new WaitForSeconds(0.800f);
+        yield return new WaitForSeconds(0.900f);
         SceneLoader.Load(SceneLoader.Scenes.menu);
     }
     public override void GetDamage()
@@ -158,7 +158,7 @@ public class Hero : Entity
         {
             audioSource.PlayOneShot(damage);
             lives--;
-            Destroy(hearts[lives].gameObject);
+            Destroy(hearts[lives].gameObject);//!!!!!!!!!!!!!!!!!!
             if (lives == 0)
                 Die();
             if (!isDead)

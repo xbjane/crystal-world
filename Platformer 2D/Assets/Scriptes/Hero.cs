@@ -8,6 +8,7 @@ public class Hero : Entity
 {
     [SerializeField] AudioSource audioSource;
     [SerializeField] TMP_Text youDiedText;
+    [SerializeField] TMP_Text youWinText;
     public AudioClip jump;
     public AudioClip damage;
     public AudioClip hit;
@@ -16,6 +17,7 @@ public class Hero : Entity
     public bool isRecharged;
     public bool isHit;
     public bool isDead;
+    private bool isWin;
     public Transform attackPos; //позиция атаки
     public float attackRange; //дальность атаки
     public LayerMask enemy; //слой с врагами
@@ -45,6 +47,7 @@ public class Hero : Entity
         isJumping =false;
         isAttacking = false;
         isHit = false;
+        isWin = false;
         isDead = false;
         isRecharged = true;
         lives = 3;
@@ -59,9 +62,15 @@ public class Hero : Entity
                 Run();
             if (!isAttacking && isGrounded && joystick.Vertical >= 0.5)
                 Jump();
+            if (transform.position.y < -5f)
+                Die();
         }
-        if (transform.position.y < -7f)
-            Die();
+        if (transform.position.x >= 13f && !isWin)
+        {
+            isWin = true;
+            StartCoroutine(GameOver(youWinText));
+        }
+
     }
     private void Jump()
     {
@@ -149,25 +158,25 @@ public class Hero : Entity
         SaveScore.score = ScoreCount.Instance.score;
         Debug.Log(ScoreCount.Instance.score);
         SaveScore.Instance.CheckScore();
-        StartCoroutine(YouDied());
+        StartCoroutine(GameOver(youDiedText));
         StartCoroutine(Death());
     }
     private IEnumerator Death()
     {
-        yield return new WaitForSeconds(0.900f);
+        yield return new WaitForSecondsRealtime(0.900f);
       
     }
-    private IEnumerator YouDied()
+    private IEnumerator GameOver(TMP_Text text)
     {
         int i = 0;
         while (i < 3)
         {
             Debug.Log("YouDied!");
             Debug.Log(i);
+            yield return new WaitForSeconds(0.300f)/*RealSeconds(0.300f)*/;
+            text.gameObject.SetActive(true);
             yield return new WaitForSeconds(0.300f);
-            youDiedText.gameObject.SetActive(true);
-            yield return new WaitForSeconds(0.300f);
-            youDiedText.gameObject.SetActive(false);
+            text.gameObject.SetActive(false);
             i++;
         }
       //  youDiedText.gameObject.SetActive(false);

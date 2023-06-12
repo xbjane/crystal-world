@@ -17,7 +17,6 @@ public class ScoreCount : MonoBehaviour
     public void AddCrystal(int count)
     {
         score += count;
-        Debug.Log(score);
         scoreText.text = score.ToString();
     }
 }

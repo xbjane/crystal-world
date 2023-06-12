@@ -189,14 +189,17 @@ public class Hero : Entity
             if (PlayerPrefsSettings.Instance.sD[0].play)
                 audioSource.PlayOneShot(damage);
             lives--;
-            Destroy(hearts[lives].gameObject);//!!!!!!!!!!!!!!!!!!
-            if (lives == 0)
-                Die();
-            if (!isDead)
+            if (lives >= 0)
             {
-                isHit = true;
-                StartCoroutine(HitAnimation());
-                State = States.hit;
+                Destroy(hearts[lives].gameObject);
+                if (lives == 0)
+                    Die();
+                if (!isDead)
+                {
+                    isHit = true;
+                    StartCoroutine(HitAnimation());
+                    State = States.hit;
+                }
             }
         }
     }

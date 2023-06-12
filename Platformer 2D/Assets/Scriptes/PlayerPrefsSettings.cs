@@ -7,7 +7,6 @@ public class PlayerPrefsSettings : MonoBehaviour
     public SettingsData[] sD;
     public ToggleSwitch[] Toggles;
     public static PlayerPrefsSettings Instance;
-    // private SettingsInfo settingsInfo;
     void Awake()
     {
         Instance = this;
@@ -22,27 +21,10 @@ public class PlayerPrefsSettings : MonoBehaviour
             {
                 sD[i].play = false;
             }
-            Debug.Log(sD[i].nameOfPref + " Awake");
-           // Toggle = Toggle;
-            // s.Toggle.GetComponent<ToggleSwitch>();
             Toggles[i].valueChanged += SaveToPrefs;
 
         }
     }
-       // Instance = this;
-    //    if (PlayerPrefs.HasKey(nameOfPref))
-    //    {
-    //        SettingsInfo.playSFX = PlayerPrefs.GetInt(nameOfPref) == 1 ? true : false;
-    //        Toggle.IsOn = SettingsInfo.playSFX;
-    //    }
-    //    else
-    //    {
-    //        SettingsInfo.playSFX = false;
-    //    }
-    //    Toggle.GetComponent<ToggleSwitch>();
-    //    Toggle.valueChanged += SaveToPrefs;
-
-    //}
     public void SaveToPrefs(ToggleSwitch toggle, bool value)
     {
 
@@ -50,27 +32,9 @@ public class PlayerPrefsSettings : MonoBehaviour
         {
             if (toggle.gameObject.name == sD[i].nameOfPref)
             {
-                Debug.Log("=");
                 sD[i].play = value;
                 PlayerPrefs.SetInt(sD[i].nameOfPref, value ? 1 : 0);
             }
-            else Debug.Log(toggle.gameObject.name + "!=" + sD[i].nameOfPref);
         }
-        //if (this.Toggle.gameObject.name == "SFXToggle")
-        //{
-        //    SettingsInfo.playSFX = value;
-        //}
-        //else if (this.Toggle.gameObject.name == "MusicToggle")
-        //{
-        //    SettingsInfo.playMusic = value;
-        //}
-        //else if (this.Toggle.gameObject.name == "VibrationToggle")
-        //{
-        //    SettingsInfo.playMusic = value;
-        //}
-       
-
     }
-   
-
 }

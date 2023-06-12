@@ -1,10 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using DG.Tweening;
-using System;
 
 public class ToggleSwitch : MonoBehaviour, IPointerDownHandler
 {

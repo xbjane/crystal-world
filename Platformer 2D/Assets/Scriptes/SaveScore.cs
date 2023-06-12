@@ -27,10 +27,8 @@ public class SaveScore : MonoBehaviour
             for (int i = 0; i < scores.Length; i++)
                 scores[i] = 0;
         loadedScore = scores[4];
-        Debug.Log("score " + score);
         if (score > loadedScore)
         {
-            Debug.Log("score > loadedScore");
             int j = 4;
             int m = j;
             while (j > 0)
@@ -44,7 +42,6 @@ public class SaveScore : MonoBehaviour
                 }
                 else break;
                 j--;
-                Debug.Log("j=" + j);
             }
             if (!isTheSameScore)
             {
@@ -104,15 +101,18 @@ public class SaveScore : MonoBehaviour
     {
         LoadGameScore();
         int i = 1;
-        if(scores[0]==0)
+        if (scores[0] == 0)
             scoreText.text = "Lets play to have records!";
         else
-        foreach (int s in scores)
         {
+            scoreText.text = null;
+            foreach (int s in scores)
+            {
                 if (s == 0)
                     break;
-            scoreText.text +=i.ToString()+ ". "+ s.ToString()+ "\n";
+                scoreText.text += i.ToString() + ". " + s.ToString() + "\n";
                 i++;
+            }
         }
     }
 }

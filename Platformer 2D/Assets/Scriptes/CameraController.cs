@@ -12,21 +12,10 @@ public class CameraController : MonoBehaviour
         if (!player)//проверка найден ли игрок
             player = FindObjectOfType<Hero>().transform;
     }
-    //private void Start()
-    //{
-    //    pos = player.position;//получаем координаты игрока
-    //    pos.z = -10f;//фиксируем положение камеры, чтобы она не приближалась к игроку
-    //    transform.position = Vector3.Lerp(transform.position, pos, Time.deltaTime);//перемещаем туда камеру, метод Lerp делает движение плавным
-
-    //}
     private void Update()
     {
         pos = player.position;//получаем координаты игрока
         pos.z = -10f;//фиксируем положение камеры, чтобы она не приближалась к игроку
         transform.position = Vector3.Lerp(transform.position, pos, Time.deltaTime);//перемещаем туда камеру, метод Lerp делает движение плавным
     }
-    //public void StartGame()
-    //{
-    //    menuCanvas.gameObject.SetActive(false);
-    //}
 }

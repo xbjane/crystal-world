@@ -6,17 +6,14 @@ public class ButtonsMenu: MonoBehaviour
 {
     public Canvas scoreCanvas;
     [SerializeField] AudioSource audioSource;
-   // [SerializeField] AudioClip audioClip;
-    //public void PlaySound(AudioClip audioClip)
-    //{
-    //    if (SettingsInfo.playSFX)
-    //        audioSource.Play()/*OneShot(audioClip)*/;
-    //    else Debug.Log("No Sound");
-    //}
     private void Start()
     {
         scoreCanvas.gameObject.SetActive(false);
-       // audioSource = GetComponent<AudioSource>();
+    }
+    public void PlaySoundFunc()
+    {
+        if(PlayerPrefsSettings.Instance.sD[0].play)
+            audioSource.Play();
     }
     public void StartGame() 
    {
@@ -24,7 +21,8 @@ public class ButtonsMenu: MonoBehaviour
    }
     private IEnumerator PlaySound()
     {
-        audioSource.Play();
+        if (PlayerPrefsSettings.Instance.sD[0].play)
+            audioSource.Play();
         yield return new WaitForSeconds(audioSource.clip.length-0.3f);
         SceneLoader.Load(SceneLoader.Scenes.game);
     }
@@ -34,8 +32,6 @@ public class ButtonsMenu: MonoBehaviour
     }
     public void Exit()
     {
-        //if (Settings.playSFX)
-        //    audioSource.PlayOneShot(audioClip);
         Debug.Log("Exit");
         Application.Quit();
     }

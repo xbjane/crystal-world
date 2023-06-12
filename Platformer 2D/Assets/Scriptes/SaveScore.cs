@@ -52,9 +52,7 @@ public class SaveScore : MonoBehaviour
                 int i = 4;
                 while (i > m)
                 {
-                   // if (scores[i] > scores[i - 1])
                         Swap(ref scores[i], ref scores[i - 1]);
-                   // else break;
                     i--;
                 }
             }
@@ -73,11 +71,8 @@ public class SaveScore : MonoBehaviour
         FileStream file = File.Create(Application.persistentDataPath + "/MySavedData.dat");//созлаЄм бинарный файл по кончтантному адресу дл€ пользовательских данных
         SavedData data = new SavedData();//создаЄм экземпл€р класса 
         data.savedScore = scores;//записываем в него данные, необходимые к сохранению
-        Debug.Log("Save" + scores[0]);
-        Debug.Log("SaveData" + data.savedScore[0]);
         bF.Serialize(file, data);//сериализуем данные экземпл€ра и отправл€ем в файл
         file.Close();
-        Debug.Log("Data Saved!!");
     }
    private void LoadGameScore()
     {
@@ -88,9 +83,6 @@ public class SaveScore : MonoBehaviour
             SavedData data = (SavedData)bF.Deserialize(file);
             file.Close();
             scores = data.savedScore;
-            Debug.Log("Load" + scores[0]);
-            Debug.Log("LoadData" + data.savedScore[0]);
-            Debug.Log("Game Data Loaded!!");
             isEmpty = false;
         }
         else
@@ -103,16 +95,10 @@ public class SaveScore : MonoBehaviour
         if (File.Exists(Application.persistentDataPath + "/MySavedData.dat"))
         {
             BinaryFormatter bF = new BinaryFormatter();
-          File.Delete(Application.persistentDataPath + "/MySavedData.dat");
-            Array.Clear(scores,0,5);
+            File.Delete(Application.persistentDataPath + "/MySavedData.dat");
+            Array.Clear(scores, 0, 5);
             scoreText.text = "Lets play to have records!";
-            //scoreText.text = scoreToSave.ToString();
-            Debug.Log("Data Reset Complete!!");
         }
-        //else
-        //{
-        //    Debug.LogError("NoSavedDataToDelete");
-        //}
     }
     public void Print()
     {

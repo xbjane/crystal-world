@@ -25,7 +25,6 @@ public class Hero : Entity
     [SerializeField] private List<Image> hearts;//количество жизней
     [SerializeField] private float jumpForce = 3f;//сила прыжка
     private bool isGrounded;//переменная, содержащая значение находится ли персонаж на земле
-    //private int allLives;
     private bool isJumping;
     private Rigidbody2D rb; //ссылки на компоненты
     private SpriteRenderer sprite;
@@ -77,10 +76,12 @@ public class Hero : Entity
         if (!isJumping)
         {
             isJumping = true;
+            if(PlayerPrefsSettings.Instance.sD[2].play)
             Handheld.Vibrate();
             State = States.jump;
             rb.velocity = Vector2.up * jumpForce; //линейная скорость по направлению
-            audioSource.PlayOneShot(jump);
+            if (PlayerPrefsSettings.Instance.sD[0].play)
+                audioSource.PlayOneShot(jump);
             StartCoroutine(WaitForJump());
         }
         //rb.AddForce(transform.up*jumpForce, ForceMode2D.Impulse);
@@ -123,11 +124,13 @@ public class Hero : Entity
         Collider2D[] colliders = Physics2D.OverlapCircleAll(attackPos.position, attackRange, enemy);//возвращает массив коллайдеров, находящийся вокруг указанной точки в указанном радиусе
         if (colliders.Length == 0)
         {
-            audioSource.PlayOneShot(hit);
+            if (PlayerPrefsSettings.Instance.sD[0].play)
+                audioSource.PlayOneShot(hit);
         }
         else
         {
-            audioSource.PlayOneShot(hitEnemy);
+            if (PlayerPrefsSettings.Instance.sD[0].play)
+                audioSource.PlayOneShot(hitEnemy);
             for (int i = 0; i < colliders.Length; i++)
             {
                     DamageToEnemy(colliders[i]);
@@ -156,7 +159,6 @@ public class Hero : Entity
         State = States.death;
         isDead = true;
         SaveScore.score = ScoreCount.Instance.score;
-        Debug.Log(ScoreCount.Instance.score);
         SaveScore.Instance.CheckScore();
         StartCoroutine(GameOver(youDiedText));
         StartCoroutine(Death());
@@ -171,15 +173,12 @@ public class Hero : Entity
         int i = 0;
         while (i < 3)
         {
-            Debug.Log("YouDied!");
-            Debug.Log(i);
             yield return new WaitForSeconds(0.300f)/*RealSeconds(0.300f)*/;
             text.gameObject.SetActive(true);
             yield return new WaitForSeconds(0.300f);
             text.gameObject.SetActive(false);
             i++;
         }
-      //  youDiedText.gameObject.SetActive(false);
         yield return new WaitForSeconds(0.300f);
         SceneLoader.Load(SceneLoader.Scenes.menu);
     }
@@ -187,7 +186,8 @@ public class Hero : Entity
     {
         if (!isHit)
         {
-            audioSource.PlayOneShot(damage);
+            if (PlayerPrefsSettings.Instance.sD[0].play)
+                audioSource.PlayOneShot(damage);
             lives--;
             Destroy(hearts[lives].gameObject);//!!!!!!!!!!!!!!!!!!
             if (lives == 0)
@@ -196,7 +196,6 @@ public class Hero : Entity
             {
                 isHit = true;
                 StartCoroutine(HitAnimation());
-                //for (int i=0;i<3;i++)
                 State = States.hit;
             }
         }

@@ -82,11 +82,6 @@ public class Enemy : Entity
                 State = States.attack;
                 return;
             }
-            //else if (Hero.Instance.isDead)
-            //{
-            //    State = States.idle;
-            //    return;
-            //}
         }
     }
     public override void GetDamage()

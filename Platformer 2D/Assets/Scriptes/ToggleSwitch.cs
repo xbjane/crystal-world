@@ -10,7 +10,8 @@ public class ToggleSwitch : MonoBehaviour, IPointerDownHandler
 {
     public bool isOn=false;
     public bool IsOn { get; set; }
-
+    public ToggleSwitch toggleSFX;
+    public ToggleSwitch toggle;
     [SerializeField]
     private RectTransform ToggleIndicator;
     [SerializeField]
@@ -23,17 +24,16 @@ public class ToggleSwitch : MonoBehaviour, IPointerDownHandler
     private float offX;
     [SerializeField]
     private float tweenTime = 0.25f;
-    public delegate void ValueChanged(bool value);
+    public delegate void ValueChanged(ToggleSwitch Toggle,bool value);
     public event ValueChanged valueChanged;
     [SerializeField] AudioSource audioSource;
-    //[SerializeField] AudioClip audioClip;
     void Start()
     {
+        toggle = this;
         offX = ToggleIndicator.anchoredPosition.x;
         onX = backgroundImage.rectTransform.rect.width - ToggleIndicator.rect.width;
         if (IsOn)
          StartToggle();
-        //audioSource = this.GetComponentInParent<AudioSource>();
     }
     public void StartToggle(bool value=true)
     {
@@ -44,11 +44,14 @@ public class ToggleSwitch : MonoBehaviour, IPointerDownHandler
     }
     public void Toggle(bool value, bool playSFX = true)
     {
+        Debug.Log("Toggle");
         isOn = value;
             IsOn = value;
-            ToggleColor(isOn);
+        if (toggleSFX.isOn)
+            audioSource.Play();
+        ToggleColor(isOn);
             MoveIndicator(isOn);
-            valueChanged?.Invoke(isOn);
+            valueChanged?.Invoke(toggle,isOn);
     }
 
     private void MoveIndicator(bool value)
@@ -70,8 +73,6 @@ public class ToggleSwitch : MonoBehaviour, IPointerDownHandler
     }
     public void OnPointerDown(PointerEventData eventData)
     {
-        if (SettingsInfo.playSFX)
-            audioSource.Play();
         Toggle(!IsOn);//меняем значение на противоположное при нажатии
     }
 }

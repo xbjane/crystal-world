@@ -6,11 +6,13 @@ public class Music : MonoBehaviour
 {
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private string createdTag;
+    private bool playMusiclocal;
+
     private void Awake()
     {
+        if (PlayerPrefsSettings.Instance.sD[1].play)
         audioSource.Play();
-        //StartCoroutine(PlayMusic());
-        //DontDestroyOnLoad(this.gameObject);
+        playMusiclocal = PlayerPrefsSettings.Instance.sD[1].play;
         GameObject gO = GameObject.FindWithTag(this.createdTag);
         if (gO != null)
         {
@@ -27,8 +29,17 @@ public class Music : MonoBehaviour
 
         yield return new WaitForSeconds(audioSource.clip.length);
     }
-    private void LateUpdate() //дабы не создавалось множество объектов с музыкой при возврате на сцену
+    private void LateUpdate()
     {
-       
+        if (playMusiclocal != PlayerPrefsSettings.Instance.sD[1].play)
+        {
+            playMusiclocal = PlayerPrefsSettings.Instance.sD[1].play;
+            if(playMusiclocal)
+                audioSource.Play();
+            else
+            audioSource.Stop();
+
+        }
+
     }
 }

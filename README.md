@@ -1,5 +1,5 @@
-# platformer2D
-The simplest Platformer2D for Android with pixel art and some feature set.
+# Crystal World
+Platformer2D for Android with pixel art and some feature set.
 # Game
 https://github.com/xbjane/platformer2D/assets/122320488/47fd5b51-e358-41cc-94f7-8a6754dca9dd
 # Hero

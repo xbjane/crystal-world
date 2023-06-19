@@ -98,7 +98,7 @@ MonoBehaviour:
   attackRadius: 0
   pivotRightDist: 0.1
   radiusOfLets: 0.2
-  speed: 1
+  speed: 0.6
   crystal: {fileID: 7313572110503628661, guid: 563091fc800191449b7f4d25d303412a, type: 3}
 --- !u!95 &8817146393699312119
 Animator:

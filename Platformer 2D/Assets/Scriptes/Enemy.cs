@@ -87,9 +87,10 @@ public class Enemy : Entity
     public override void GetDamage()
     {
         lives--;
+       
         isHit = true;
-        StartCoroutine(HitAnimation());
         State = States.hit;
+        StartCoroutine(HitAnimation());
         if (lives < 1)
         {
             State = States.destroy;
@@ -104,7 +105,10 @@ public class Enemy : Entity
     }
     private IEnumerator HitAnimation()
     {
-        yield return new WaitForSeconds(0.233f);
+        yield return new WaitForSeconds(0.683f);
+       
+        //State = States.idle;
+        //yield return new WaitForSeconds(0.200f);
         isHit = false;
     }
     private void OnAttack()

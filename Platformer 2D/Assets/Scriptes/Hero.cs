@@ -100,11 +100,11 @@ public class Hero : Entity
     }
     public void Attack()
     {
-        if (isGrounded && isRecharged&&!isDead)
-        {
-            State = States.attack;
+        if (isGrounded && /*!isAttacking*/isRecharged && !isDead)
+        {         
             isAttacking = true;
             isRecharged = false;
+            State = States.attack;
             StartCoroutine(AttackAnimation()); //корутина выполняется параллельно основному потоку
             StartCoroutine(AttackCoolDown());
         }
@@ -116,7 +116,7 @@ public class Hero : Entity
     }
     private IEnumerator AttackCoolDown() //подсчёт времени перезарядки
     {
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.35f);
         isRecharged = true;
     }
     private void OnAttack()
@@ -140,7 +140,10 @@ public class Hero : Entity
     private void DamageToEnemy(Collider2D collider)
     {
         if (collider.GetComponent<Entity>() is Enemy/*|| collider.GetComponent<Entity>() is Worm*/)
-            collider.GetComponent<Entity>().GetDamage();
+        {
+
+            collider.GetComponent<Enemy>().GetDamage();
+        }           
     }
     private void OnDrawGizmosSelected() //нарисовать сферу, показывающую радиус атаки
     {
